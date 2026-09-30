@@ -173,7 +173,7 @@ export function HeroBackdrop({ image, video, poster, alt }: HeroBackdropProps) {
           />
         </div>
       )}
-      <div aria-hidden className="absolute inset-0 bg-linear-to-r from-asphalt-950 via-asphalt-950/80 to-asphalt-950/10" />
+      <div aria-hidden className="absolute inset-0 bg-linear-to-r from-asphalt-950/90 via-asphalt-950/55 to-transparent" />
       <div aria-hidden className="absolute inset-x-0 bottom-0 h-40 bg-linear-to-t from-asphalt-950 to-transparent" />
     </div>
   );

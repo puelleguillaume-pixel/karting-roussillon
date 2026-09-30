@@ -194,7 +194,7 @@ insert into public.site_content (key, title, body, data, is_published) values
      "socials": {"facebook": "https://www.facebook.com/profile.php?id=61572543572359",
                  "instagram": "https://www.instagram.com/kartingduroussillon/",
                  "youtube": "", "tiktok": ""}}', true),
-  ('brand', 'Karting Roussillon', '', '{"logo_path": null, "logo_alt": "Karting Roussillon"}', true),
+  ('brand', 'Karting Roussillon', '', '{"logo_path": "logo.png", "logo_alt": "Karting Roussillon"}', true),
   ('banner', '', '', '{"level": "info"}', false);
 
 -- Textes des pages (titre = H1, body = introduction, data = SEO et sections).
@@ -206,7 +206,7 @@ insert into public.site_content (key, title, body, data, is_published) values
      "eyebrow": "Rivesaltes · Pyrénées-Orientales",
      "seo_title": "Karting Roussillon · Karting à Rivesaltes près de Perpignan (66)",
      "seo_description": "Karting à Rivesaltes, près de Perpignan et Claira (Pyrénées-Orientales) : 3 circuits, karts dès 3 ans, anniversaires, trackdays. Ouvert 7j/7.",
-     "hero_image": null, "hero_video": null, "hero_poster": null,
+     "hero_image": null, "hero_video": "hero/circuit.mp4", "hero_poster": "hero/circuit-poster.jpg",
      "cta_primary": "Réserver une session", "cta_secondary": "Offrir un bon cadeau",
      "sections": {
        "circuits": {"title": "Trois circuits", "body": "Du circuit loisir de 726 m au grand tracé de 1513 m dédié aux trackdays et aux événements."},

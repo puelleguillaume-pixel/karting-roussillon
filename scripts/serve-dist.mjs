@@ -31,6 +31,8 @@ const TYPES = {
   '.webp': 'image/webp',
   '.avif': 'image/avif',
   '.pdf': 'application/pdf',
+  '.mp4': 'video/mp4',
+  '.ico': 'image/x-icon',
 };
 
 /** Motif Netlify (« /assets/* », « /*.html ») → expression régulière */
