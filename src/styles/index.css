@@ -1,0 +1,168 @@
+@import 'tailwindcss';
+
+/* =============================================================================
+   Karting Roussillon — design tokens
+   Univers : asphalte (neutres légèrement froids), rouge course, blanc craie.
+   Motifs métier : damier (drapeau), vibreur rouge/blanc, coin biseauté.
+   ============================================================================= */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+  --color-white: #ffffff;
+  --color-black: #000000;
+
+  /* Asphalte */
+  --color-asphalt-950: #0a0a0b;
+  --color-asphalt-900: #111215;
+  --color-asphalt-850: #16181c;
+  --color-asphalt-800: #1c1e23;
+  --color-asphalt-700: #2a2d34;
+  --color-asphalt-600: #3b3f48;
+  --color-asphalt-500: #5b606b;
+  --color-asphalt-400: #8b909a; /* texte discret : 6,1:1 sur asphalt-950 */
+  --color-asphalt-300: #b4b8c0;
+  --color-asphalt-200: #d6d8dc;
+
+  /* Craie (texte principal) */
+  --color-chalk: #f2f2ee;
+
+  /* Rouge course */
+  --color-race-700: #a8000d;
+  --color-race-600: #d00010; /* fonds de boutons : blanc dessus 5,2:1 */
+  --color-race-500: #e8141c;
+  --color-race-400: #ff4d4d; /* texte rouge sur fond sombre : 5,6:1 */
+
+  /* Drapeaux (statuts de piste) */
+  --color-flag-green: #2bb673;
+  --color-flag-yellow: #f2c230;
+  --color-flag-blue: #4c8dff;
+
+  --font-sans: 'Barlow', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Barlow Condensed', 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
+
+  /* Échelle typographique d'affichage (fluide) */
+  --text-display-2xl: clamp(3.25rem, 11vw, 8.5rem);
+  --text-display-2xl--line-height: 0.86;
+  --text-display-xl: clamp(2.75rem, 7.5vw, 5.75rem);
+  --text-display-xl--line-height: 0.9;
+  --text-display-lg: clamp(2.1rem, 5vw, 3.75rem);
+  --text-display-lg--line-height: 0.95;
+  --text-display-md: clamp(1.6rem, 3vw, 2.25rem);
+  --text-display-md--line-height: 1;
+  --text-display-sm: 1.375rem;
+  --text-display-sm--line-height: 1.1;
+
+  --breakpoint-xs: 30rem;
+
+  --ease-race: cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    scroll-padding-top: 6rem;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background-color: var(--color-asphalt-950);
+    color: var(--color-chalk);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-race-400);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: var(--color-race-600);
+    color: var(--color-white);
+  }
+}
+
+/* Damier (drapeau à damier) — taille réglable via --checker */
+@utility checker {
+  background-image: conic-gradient(
+    currentColor 0 25%,
+    transparent 0 50%,
+    currentColor 0 75%,
+    transparent 0
+  );
+  background-size: var(--checker, 12px) var(--checker, 12px);
+}
+
+/* Vibreur rouge / blanc */
+@utility kerb {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-race-600) 0 12px,
+    var(--color-chalk) 12px 24px
+  );
+}
+
+/* Coin biseauté (UI « motorsport ») */
+@utility notch {
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--notch, 12px)) 0,
+    100% var(--notch, 12px),
+    100% 100%,
+    var(--notch, 12px) 100%,
+    0 calc(100% - var(--notch, 12px))
+  );
+}
+
+/* Texte en contour (décoratif uniquement, toujours aria-hidden) */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: var(--outline, 1.5px) currentColor;
+  paint-order: stroke fill;
+}
+
+/* Lignes de vitesse */
+@utility speed-lines {
+  background-image: repeating-linear-gradient(
+    100deg,
+    rgb(255 255 255 / 0.035) 0 1px,
+    transparent 1px 22px
+  );
+}
+
+@utility tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Trajectoire animée des illustrations de circuit */
+@keyframes kr-racing-line {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.kr-racing-line {
+  animation: kr-racing-line 9s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
