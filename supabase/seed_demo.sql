@@ -23,12 +23,6 @@ values ('00000000-0000-4000-8000-00000000a11e', 'accueil@exemple.fr', now());
 insert into public.staff_roles (user_id, role, display_name)
 values ('00000000-0000-4000-8000-00000000a11e', 'staff', 'Accueil (démo)');
 
--- Bannière d'information publiée (pour montrer le composant)
-update public.site_content
-   set is_published = true,
-       body = $$Exemple de bannière d'information : l'équipe peut la modifier depuis l'espace dirigeant (fermeture météo, horaires exceptionnels…).$$
- where key = 'banner';
-
 -- Événements d'exemple sur la grande piste, avec le blocage de planning associé
 with ev as (
   insert into public.events (slug, title, kind, category, description, starts_at, ends_at, capacity, price_cents,
