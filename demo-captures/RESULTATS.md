@@ -1,4 +1,4 @@
-# Résultats du dernier build (094e31e)
+# Résultats du dernier build (cd7919a)
 
 | Étape | Résultat |
 |---|---|
@@ -35,13 +35,13 @@
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/home/runner/work/karting-roussillon/karting-roussillon[39m
 
- [32m✓[39m src/test/seo.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 7[2mms[22m[39m
- [32m✓[39m src/test/rules.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m src/test/seo.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 5[2mms[22m[39m
+ [32m✓[39m src/test/rules.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 7[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
 [2m      Tests [22m [1m[32m21 passed[39m[22m[90m (21)[39m
-[2m   Start at [22m 17:17:59
-[2m   Duration [22m 215ms[2m (transform 68%, import 22%, tests 8%, worker 3%)[22m
+[2m   Start at [22m 17:20:48
+[2m   Duration [22m 188ms[2m (transform 76%, import 16%, tests 6%, worker 2%)[22m
 
 ```
 
@@ -86,6 +86,6 @@ dist-ssr/assets/GiftCardPage-Bczi9VZ8.js         32.13 kB │ gzip:  8.28 kB
 dist-ssr/assets/BookingPage-DU6xP-CJ.js          35.45 kB │ gzip:  8.80 kB
 dist-ssr/entry-server.js                         69.59 kB │ gzip: 17.91 kB
 
-[32m✓ built in 88ms[39m
-Pré-rendu SEO : 16 pages (données embarquées : 16 Ko), sitemap et robots.txt (données de démonstration, indexation bloquée) en 3458 ms
+[32m✓ built in 68ms[39m
+Pré-rendu SEO : 16 pages (données embarquées : 16 Ko), sitemap et robots.txt (données de démonstration, indexation bloquée) en 2622 ms
 ```
