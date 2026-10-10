@@ -1,0 +1,76 @@
+# Démo Karting de Torreilles : vérifications, build et captures d'écran.
+# Les captures sont ajoutées à la branche dans demo-captures/.
+name: Démo Torreilles — build et captures
+
+on:
+  push:
+    branches: [claude/kind-dirac-kamq6f]
+    paths-ignore: ['demo-captures/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: demo-captures
+  cancel-in-progress: true
+
+jobs:
+  demo:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+
+      - name: TypeScript
+        id: typecheck
+        continue-on-error: true
+        run: npm run typecheck 2>&1 | tee /tmp/typecheck.log; exit ${PIPESTATUS[0]}
+      - name: ESLint
+        id: lint
+        continue-on-error: true
+        run: npm run lint 2>&1 | tee /tmp/lint.log; exit ${PIPESTATUS[0]}
+      - name: Tests unitaires
+        id: unit
+        continue-on-error: true
+        run: npm test 2>&1 | tee /tmp/unit.log; exit ${PIPESTATUS[0]}
+      - name: Build de production
+        id: build
+        continue-on-error: true
+        run: npm run build 2>&1 | tee /tmp/build.log; exit ${PIPESTATUS[0]}
+      - name: Build sans TypeScript (si le build complet a échoué)
+        if: steps.build.outcome == 'failure'
+        run: npx vite build && npx vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs
+
+      - run: npx playwright install --with-deps chromium
+      - name: Captures
+        run: |
+          rm -rf demo-captures
+          node scripts/demo-captures.mjs demo-captures
+          {
+            echo "# Résultats du dernier build ($(git rev-parse --short HEAD))"
+            echo
+            echo "| Étape | Résultat |"
+            echo "|---|---|"
+            echo "| TypeScript | ${{ steps.typecheck.outcome }} |"
+            echo "| ESLint | ${{ steps.lint.outcome }} |"
+            echo "| Tests unitaires | ${{ steps.unit.outcome }} |"
+            echo "| Build de production | ${{ steps.build.outcome }} |"
+            for f in typecheck lint unit build; do
+              echo; echo "## $f"; echo; echo '```'; tail -n 40 /tmp/$f.log; echo '```'
+            done
+          } > demo-captures/RESULTATS.md
+
+      - name: Ajouter les captures à la branche
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add demo-captures
+          git commit -m "Captures de la démo Torreilles" || exit 0
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:$GITHUB_REF_NAME"
