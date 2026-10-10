@@ -11,3 +11,4 @@ dist-ssr-prod/
 test-results/
 playwright-report/
 public/images/_opt/
+.netlify/
