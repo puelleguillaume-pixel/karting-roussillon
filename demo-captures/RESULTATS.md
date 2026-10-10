@@ -1,4 +1,4 @@
-# Résultats du dernier build (89f2339)
+# Résultats du dernier build (0482a35)
 
 | Étape | Résultat |
 |---|---|
@@ -35,13 +35,13 @@
 
 [1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/home/runner/work/karting-roussillon/karting-roussillon[39m
 
- [32m✓[39m src/test/seo.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m src/test/seo.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
  [32m✓[39m src/test/rules.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 13[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
 [2m      Tests [22m [1m[32m21 passed[39m[22m[90m (21)[39m
-[2m   Start at [22m 17:29:56
-[2m   Duration [22m 291ms[2m (transform 67%, import 22%, tests 8%, worker 3%)[22m
+[2m   Start at [22m 17:33:01
+[2m   Duration [22m 292ms[2m (transform 69%, import 21%, tests 7%, worker 3%)[22m
 
 ```
 
@@ -87,5 +87,5 @@ dist-ssr/assets/BookingPage-DU6xP-CJ.js          35.45 kB │ gzip:  8.80 kB
 dist-ssr/entry-server.js                         69.59 kB │ gzip: 17.91 kB
 
 [32m✓ built in 108ms[39m
-Pré-rendu SEO : 16 pages (données embarquées : 16 Ko), sitemap et robots.txt (données de démonstration, indexation bloquée) en 4664 ms
+Pré-rendu SEO : 16 pages (données embarquées : 16 Ko), sitemap et robots.txt (données de démonstration, indexation bloquée) en 4739 ms
 ```
