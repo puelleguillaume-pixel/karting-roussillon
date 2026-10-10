@@ -138,7 +138,7 @@ function renderPage(template, route, bundle, calendar, body) {
   const description = data.seo_description || truncate(plain(page?.body), 160);
   const canonical = `${siteUrl}${route.path}`;
   const brand = bundle.content['brand']?.data ?? {};
-  const image = data.hero_image || bundle.content['page.home']?.data?.hero_image || brand.logo_path;
+  const image = data.hero_image || bundle.content['page.home']?.data?.hero_image || brand.logo_path || 'logo-partage.png';
   const imageUrl = image ? (/^https?:/.test(image) ? image : `${siteUrl}/images/${String(image).replace(/^\/?(images\/)?/, '')}`) : null;
 
   const head = [

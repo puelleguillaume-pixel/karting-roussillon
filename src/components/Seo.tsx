@@ -28,7 +28,7 @@ export function Seo({ title, description, noIndex, jsonLd = [], image }: SeoProp
   const canonical = `${env.siteUrl}${pathname === '/' ? '/' : pathname}`;
   const home = bundle?.content['page.home']?.data as { hero_image?: string | null; hero_poster?: string | null } | undefined;
   const brand = bundle?.content['brand']?.data as { logo_path?: string | null } | undefined;
-  const shareImage = assetUrl(image ?? home?.hero_image ?? home?.hero_poster ?? brand?.logo_path ?? null);
+  const shareImage = assetUrl(image ?? home?.hero_image ?? home?.hero_poster ?? brand?.logo_path ?? 'logo-partage.png');
   const blocks = noIndex ? [] : [...jsonLd, breadcrumbJsonLd(breadcrumbTrail(pathname), env.siteUrl)].filter(Boolean);
 
   return (
