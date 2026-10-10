@@ -25,6 +25,9 @@ async function settle(page) {
   const refuse = page.getByRole('button', { name: 'Tout refuser' });
   if (await refuse.isVisible().catch(() => false)) await refuse.click();
   await page.waitForLoadState('networkidle').catch(() => {});
+  // Les sections hors écran ne sont pas peintes (content-visibility: auto) :
+  // la capture pleine page les force
+  await page.addStyleTag({ content: 'section { content-visibility: visible !important; }' });
   // Fait défiler la page pour déclencher les apparitions au défilement
   await page.evaluate(async () => {
     for (let y = 0; y < document.body.scrollHeight; y += 400) {
