@@ -33,7 +33,7 @@ export default function AccountPage() {
   const { user, ready } = useAuth();
   return (
     <>
-      <Seo title="Mon compte · Karting Roussillon" noIndex />
+      <Seo title="Mon compte · Karting de Torreilles" noIndex />
       <PageHeader eyebrow="Espace client" title="Mon compte" intro={user ? `Connecté avec ${user.email}` : 'Retrouvez vos réservations et vos bons cadeaux.'} />
       <Section>{!ready ? <Skeleton className="h-40 w-full max-w-xl" /> : user ? <Dashboard /> : <LoginPanel />}</Section>
     </>

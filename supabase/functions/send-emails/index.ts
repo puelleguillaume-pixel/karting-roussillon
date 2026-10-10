@@ -150,7 +150,7 @@ Deno.serve(async (request) => {
 
   let ctx: EmailContext;
   try {
-    ctx = await loadContext(db, (env('SITE_URL') ?? 'https://www.kartingroussillon.com').replace(/\/$/, ''));
+    ctx = await loadContext(db, (env('SITE_URL') ?? 'https://www.kartingtorreilles.com').replace(/\/$/, ''));
   } catch (contextError) {
     // Remise en file de tout le lot (nouvel essai différé)
     const message = contextError instanceof Error ? contextError.message : String(contextError);

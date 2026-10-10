@@ -40,7 +40,7 @@ export function ActivityStep({ catalog, onSelect }: { catalog: Catalog; onSelect
   const packs = catalog.packs.filter((p) => p.is_online_bookable && isInSeason(p));
   const groups: Array<{ title: string; items: Product[] }> = [
     { title: 'Sessions', items: sessions },
-    { title: 'Packs KR', items: packs },
+    { title: 'Packs', items: packs },
   ];
 
   return (
@@ -69,10 +69,10 @@ export function ActivityStep({ catalog, onSelect }: { catalog: Catalog; onSelect
             <span className="text-sm text-asphalt-400">Faites une demande depuis la page Formules.</span>
           </span>
         </Link>
-        <Link to="/trackday" className="flex items-center gap-3 bg-asphalt-900 p-4 ring-1 ring-asphalt-800 hover:ring-race-500">
+        <Link to="/evenements" className="flex items-center gap-3 bg-asphalt-900 p-4 ring-1 ring-asphalt-800 hover:ring-race-500">
           <CalendarDays aria-hidden className="size-6 shrink-0 text-race-400" />
           <span>
-            <span className="block font-semibold">Trackdays et droits de piste</span>
+            <span className="block font-semibold">Courses et événements</span>
             <span className="text-sm text-asphalt-400">Places à réserver depuis le calendrier.</span>
           </span>
         </Link>

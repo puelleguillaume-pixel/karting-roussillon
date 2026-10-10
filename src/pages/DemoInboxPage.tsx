@@ -42,7 +42,7 @@ function Inbox() {
     () => ({
       siteUrl: window.location.origin,
       business: {
-        name: contact?.title ?? 'Karting Roussillon',
+        name: contact?.title ?? 'Karting de Torreilles',
         address: contact?.data.address ?? '',
         postalCode: contact?.data.postal_code ?? '',
         city: contact?.data.city ?? '',
@@ -63,7 +63,7 @@ function Inbox() {
 
   return (
     <>
-      <Seo title="Emails de démonstration · Karting Roussillon" noIndex />
+      <Seo title="Emails de démonstration · Karting de Torreilles" noIndex />
       <PageHeader
         eyebrow="Mode démonstration"
         title="Emails envoyés"

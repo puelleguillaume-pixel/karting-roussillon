@@ -19,7 +19,7 @@ function euros(cents: number): string {
 
 function contactOf(bundle: SiteBundle): { name: string; data: ContactData } | null {
   const block = bundle.content['contact'];
-  return block ? { name: block.title || 'Karting Roussillon', data: block.data as unknown as ContactData } : null;
+  return block ? { name: block.title || 'Karting de Torreilles', data: block.data as unknown as ContactData } : null;
 }
 
 /** Horaires généraux (hors règles datées et hors pistes spécifiques), regroupés par plage identique */
@@ -53,7 +53,7 @@ export function businessJsonLd(bundle: SiteBundle, siteUrl: string): JsonLd | nu
     url: `${siteUrl}/`,
     telephone: data.phone_e164 || data.phone,
     image: absolute(siteUrl, home?.hero_image ?? home?.hero_poster ?? brand?.logo_path ?? null),
-    logo: absolute(siteUrl, brand?.logo_path ?? null),
+    logo: absolute(siteUrl, brand?.logo_path ?? '/icon-512.png'),
     description: bundle.content['page.home']?.data && (bundle.content['page.home'].data as { seo_description?: string }).seo_description,
     address: {
       '@type': 'PostalAddress',
@@ -64,7 +64,7 @@ export function businessJsonLd(bundle: SiteBundle, siteUrl: string): JsonLd | nu
       addressCountry: 'FR',
     },
     ...(data.geo ? { geo: { '@type': 'GeoCoordinates', latitude: data.geo.lat, longitude: data.geo.lng } } : {}),
-    areaServed: ['Rivesaltes', 'Claira', 'Perpignan', 'Pyrénées-Orientales'],
+    areaServed: ['Torreilles', 'Perpignan', 'Pyrénées-Orientales'],
     openingHoursSpecification: openingHours(bundle),
     ...(prices.length ? { priceRange: `${euros(Math.min(...prices)).replace('.00', '')} € – ${euros(Math.max(...prices)).replace('.00', '')} €`, currenciesAccepted: 'EUR' } : {}),
     ...(socials.length ? { sameAs: socials } : {}),
@@ -77,7 +77,7 @@ export function websiteJsonLd(bundle: SiteBundle, siteUrl: string): JsonLd {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     '@id': `${siteUrl}/#site`,
-    name: bundle.content['contact']?.title || 'Karting Roussillon',
+    name: bundle.content['contact']?.title || 'Karting de Torreilles',
     url: `${siteUrl}/`,
     inLanguage: 'fr-FR',
   };
@@ -99,7 +99,7 @@ export function productsJsonLd(bundle: SiteBundle, siteUrl: string): JsonLd | nu
         name: p.name,
         description: p.short_description || p.description || p.age_label,
         image: absolute(siteUrl, p.image_path),
-        brand: { '@type': 'Brand', name: bundle.content['contact']?.title || 'Karting Roussillon' },
+        brand: { '@type': 'Brand', name: bundle.content['contact']?.title || 'Karting de Torreilles' },
         offers: {
           '@type': 'Offer',
           price: euros(p.price_cents!),
@@ -113,7 +113,7 @@ export function productsJsonLd(bundle: SiteBundle, siteUrl: string): JsonLd | nu
   };
 }
 
-/** Trackdays et événements publiés à venir */
+/** Événements publiés à venir */
 export function eventsJsonLd(items: CalendarItem[], bundle: SiteBundle, siteUrl: string): JsonLd[] {
   const contact = contactOf(bundle);
   return items
@@ -128,13 +128,13 @@ export function eventsJsonLd(items: CalendarItem[], bundle: SiteBundle, siteUrl:
       eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
       location: {
         '@type': 'Place',
-        name: contact?.name ?? 'Karting Roussillon',
+        name: contact?.name ?? 'Karting de Torreilles',
         address: contact
           ? { '@type': 'PostalAddress', streetAddress: contact.data.address, postalCode: contact.data.postal_code, addressLocality: contact.data.city, addressCountry: 'FR' }
           : undefined,
       },
       organizer: { '@id': `${siteUrl}/#etablissement` },
-      url: i.event_slug ? `${siteUrl}/reserver/evenement/${i.event_slug}` : `${siteUrl}/trackday`,
+      url: i.event_slug ? `${siteUrl}/reserver/evenement/${i.event_slug}` : `${siteUrl}/evenements`,
       ...(i.event_slug && i.places_left != null
         ? {
             offers: {

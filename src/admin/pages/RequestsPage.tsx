@@ -40,7 +40,7 @@ export default function RequestsPage() {
   return (
     <AdminPage
       title="Demandes"
-      description="Anniversaires, EVG/EVJF, team building, école de pilotage, Alpine : du premier contact au règlement. Chaque changement d’étape peut prévenir le client par email."
+      description="Anniversaires, EVG/EVJF, groupes et entreprises : du premier contact au règlement. Chaque changement d’étape peut prévenir le client par email."
       actions={<SearchInput value={q} onChange={setQ} placeholder="Référence, nom, email, entreprise…" />}
     >
       {requests.isError ? (

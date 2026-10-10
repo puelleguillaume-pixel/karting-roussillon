@@ -1,5 +1,5 @@
 -- =============================================================================
--- Karting Roussillon — Données de DÉMONSTRATION
+-- Karting de Torreilles — Données de DÉMONSTRATION
 -- Chargées uniquement par le mode démo du front (base PGlite dans le navigateur).
 -- NE JAMAIS appliquer en production. Tout est explicitement libellé « exemple ».
 -- =============================================================================
@@ -29,82 +29,56 @@ update public.site_content
        body = $$Exemple de bannière d'information : l'équipe peut la modifier depuis l'espace dirigeant (fermeture météo, horaires exceptionnels…).$$
  where key = 'banner';
 
--- Trackdays d'exemple sur le Circuit 3, avec le blocage de planning associé
+-- Événements d'exemple sur la grande piste, avec le blocage de planning associé
 with ev as (
   insert into public.events (slug, title, kind, category, description, starts_at, ends_at, capacity, price_cents,
                              requires_own_vehicle, is_published, is_bookable)
   values
-    ('exemple-trackday-moto', 'Trackday moto (exemple)', 'trackday', 'moto',
+    ('exemple-course-endurance', 'Course d''endurance (exemple)', 'competition', 'kart',
      'Événement d''exemple créé pour la démonstration.',
-     app.local_ts(app.local_date(now()) + 12, '09:00'), app.local_ts(app.local_date(now()) + 12, '18:00'), 25, 15000, true, true, true),
-    ('exemple-trackday-auto', 'Trackday auto (exemple)', 'trackday', 'auto',
+     app.local_ts(app.local_date(now()) + 12, '19:00'), app.local_ts(app.local_date(now()) + 12, '23:00'), 30, 4500, false, true, true),
+    ('exemple-soiree-grand-prix', 'Soirée Grand Prix (exemple)', 'event', 'kart',
      'Événement d''exemple créé pour la démonstration.',
-     app.local_ts(app.local_date(now()) + 26, '09:00'), app.local_ts(app.local_date(now()) + 26, '18:00'), 20, 18000, true, true, true)
-  returning id, starts_at, ends_at, title
+     app.local_ts(app.local_date(now()) + 26, '19:00'), app.local_ts(app.local_date(now()) + 26, '23:00'), 20, 3500, false, true, true)
+  returning id, starts_at, ends_at, title, kind
 ),
 et as (
   insert into public.event_tracks (event_id, track_id)
-  select ev.id, t.id from ev, public.tracks t where t.slug = 'circuit-3'
+  select ev.id, t.id from ev, public.tracks t where t.slug = 'grande-piste'
   returning event_id
 ),
 bl as (
   insert into public.schedule_blocks (starts_at, ends_at, block_type, reason, public_label, is_public, event_id, internal_note)
-  select ev.starts_at, ev.ends_at, 'custom', 'trackday', ev.title, true, ev.id, 'Exemple de démonstration'
+  select ev.starts_at, ev.ends_at, 'custom',
+         case when ev.kind = 'competition' then 'competition' else 'private_event' end::public.block_reason,
+         ev.title, true, ev.id, 'Exemple de démonstration'
   from ev
   returning id
 )
 insert into public.schedule_block_tracks (block_id, track_id)
-select bl.id, t.id from bl, public.tracks t where t.slug = 'circuit-3';
+select bl.id, t.id from bl, public.tracks t where t.slug = 'grande-piste';
 
--- Privatisation publique d'exemple (Circuit 1, après-midi)
+-- Privatisation publique d'exemple (grande piste, après-midi)
 with b as (
   insert into public.schedule_blocks (starts_at, ends_at, block_type, reason, public_label, is_public, internal_note)
-  values (app.local_ts(app.local_date(now()) + 8, '13:00'), app.local_ts(app.local_date(now()) + 8, '19:00'),
-          'afternoon', 'private_event', 'Circuit 1 privatisé (exemple)', true, 'Exemple de démonstration')
+  values (app.local_ts(app.local_date(now()) + 8, '14:00'), app.local_ts(app.local_date(now()) + 8, '18:00'),
+          'custom', 'private_event', 'Grande piste privatisée (exemple)', true, 'Exemple de démonstration')
   returning id
 )
 insert into public.schedule_block_tracks (block_id, track_id)
-select b.id, t.id from b, public.tracks t where t.slug = 'circuit-1';
-
--- Statuts des droits de piste (Circuit 2) sur 45 jours : motif d'exemple
-insert into public.track_access_calendar (track_id, day, status, public_label)
-select t.id, d::date,
-       case
-         when extract(isodow from d) = 2 then 'restricted'
-         when (d::date - app.local_date(now())) in (5, 19, 33) then 'closed'
-         else 'open'
-       end::public.track_access_status,
-       case
-         when extract(isodow from d) = 2 then 'Accès restreint (exemple)'
-         when (d::date - app.local_date(now())) in (5, 19, 33) then 'Fermé au droit de piste (exemple)'
-         else ''
-       end
-from public.tracks t, generate_series(app.local_date(now()), app.local_date(now()) + 44, interval '1 day') d
-where t.slug = 'circuit-2';
-
--- Statuts du Circuit 3 : trackdays et privatisation d'exemple
-insert into public.track_access_calendar (track_id, day, status, public_label)
-select t.id, app.local_date(now()) + x.offset_days, x.status::public.track_access_status, x.label
-from public.tracks t,
-     (values (12, 'trackday', 'Trackday moto (exemple)'),
-             (26, 'trackday', 'Trackday auto (exemple)'),
-             (16, 'private',  'Privatisé (exemple)')) as x(offset_days, status, label)
-where t.slug = 'circuit-3';
+select b.id, t.id from b, public.tracks t where t.slug = 'grande-piste';
 
 -- Chronos d'exemple
 insert into public.lap_records (track_id, vehicle_type_id, category_label, driver_name, lap_time_ms, recorded_on)
 select t.id, v.id, x.category, x.driver, x.ms, app.local_date(now()) - x.days_ago
 from (values
-  ('circuit-2', 'sodikart-30cv', 'SodiKart 2T 30 CV', 'Pilote exemple A', 44210, 3),
-  ('circuit-2', 'sodikart-30cv', 'SodiKart 2T 30 CV', 'Pilote exemple B', 44987, 12),
-  ('circuit-2', 'sodikart-30cv', 'SodiKart 2T 30 CV', 'Pilote exemple C', 45530, 20),
-  ('circuit-2', 'sodikart-22cv', 'SodiKart 2T 22 CV', 'Pilote exemple D', 46120, 5),
-  ('circuit-2', 'sodikart-22cv', 'SodiKart 2T 22 CV', 'Pilote exemple E', 46804, 9),
-  ('circuit-1', 'sodikart-390',  'SodiKart 390 cc',   'Pilote exemple F', 38950, 2),
-  ('circuit-1', 'sodikart-390',  'SodiKart 390 cc',   'Pilote exemple G', 39412, 15),
-  ('circuit-1', 'sodikart-390',  'SodiKart 390 cc',   'Pilote exemple H', 40077, 30),
-  ('circuit-1', 'kart-160',      'Kart 160 cc',       'Pilote exemple I', 45890, 6),
-  ('circuit-1', 'kart-160',      'Kart 160 cc',       'Pilote exemple J', 47215, 11)
+  ('grande-piste', 'kart-270', 'Kart 270 cc', 'Pilote exemple A', 31240, 3),
+  ('grande-piste', 'kart-270', 'Kart 270 cc', 'Pilote exemple B', 31785, 12),
+  ('grande-piste', 'kart-270', 'Kart 270 cc', 'Pilote exemple C', 32310, 20),
+  ('grande-piste', 'kart-270', 'Kart 270 cc', 'Pilote exemple D', 32954, 5),
+  ('grande-piste', 'kart-120', 'Kart 120 cc', 'Pilote exemple E', 35120, 6),
+  ('grande-piste', 'kart-120', 'Kart 120 cc', 'Pilote exemple F', 35870, 11),
+  ('grande-piste', 'kart-120', 'Kart 120 cc', 'Pilote exemple G', 36605, 2)
 ) as x(track, vehicle, category, driver, ms, days_ago)
 join public.tracks t on t.slug = x.track
 join public.vehicle_types v on v.slug = x.vehicle;
@@ -148,17 +122,18 @@ begin
 
   -- (jour, heure locale, produit, karts, client, source, participants)
   for r in select * from (values
-      (0, '11:00', 'session-sodikart-390',  3, 1, 'online', '[{"first_name":"Julie","last_name":"Exemple","birth_date":"1990-04-12","role":"driver"},{"first_name":"Paul","last_name":"Exemple","birth_date":"1988-09-02","role":"driver"},{"first_name":"Emma","last_name":"Exemple","birth_date":"2008-01-20","role":"driver","guardian_name":"Julie Exemple"}]'),
-      (0, '14:30', 'session-sodikart-22cv', 2, 2, 'phone',  '[]'),
-      (0, '16:00', 'session-biplace',       1, 3, 'online', '[{"first_name":"Sofia","last_name":"Exemple","birth_date":"1985-06-30","role":"driver"},{"first_name":"Léo","last_name":"Exemple","birth_date":"2016-03-14","role":"passenger","height_cm":115,"guardian_name":"Sofia Exemple"}]'),
-      (0, '17:30', 'session-sodikart-390',  4, 4, 'online', '[]'),
-      (0, '18:15', 'session-sodikart-30cv', 2, 5, 'counter','[]'),
-      (1, '10:00', 'session-sodikart-390',  2, 6, 'online', '[{"first_name":"Hugo","last_name":"Exemple","birth_date":"1995-11-05","role":"driver"},{"first_name":"Nina","last_name":"Exemple","birth_date":"1997-02-17","role":"driver"}]'),
-      (1, '15:00', 'session-sodikart-30cv', 3, 4, 'phone',  '[]'),
-      (2, '11:30', 'session-sodikart-390',  5, 2, 'online', '[]'),
-      (3, '14:00', 'session-sodikart-22cv', 2, 5, 'online', '[]'),
-      (5, '10:30', 'session-biplace',       2, 1, 'online', '[]'),
-      (6, '16:45', 'session-sodikart-390',  6, 3, 'phone',  '[]')
+      (0, '11:00', 'session-kart-270',  3, 1, 'online', '[{"first_name":"Julie","last_name":"Exemple","birth_date":"1990-04-12","role":"driver"},{"first_name":"Paul","last_name":"Exemple","birth_date":"1988-09-02","role":"driver"},{"first_name":"Emma","last_name":"Exemple","birth_date":"2008-01-20","role":"driver","guardian_name":"Julie Exemple"}]'),
+      (0, '14:30', 'session-kart-120',  2, 2, 'phone',  '[]'),
+      (0, '16:00', 'session-biplace',   1, 3, 'online', '[{"first_name":"Sofia","last_name":"Exemple","birth_date":"1985-06-30","role":"driver"},{"first_name":"Léo","last_name":"Exemple","birth_date":"2016-03-14","role":"passenger","height_cm":115,"guardian_name":"Sofia Exemple"}]'),
+      (0, '17:30', 'session-kart-270',  4, 4, 'online', '[]'),
+      (0, '21:15', 'session-kart-270',  2, 5, 'counter','[]'),
+      (1, '10:00', 'session-kart-270',  2, 6, 'online', '[{"first_name":"Hugo","last_name":"Exemple","birth_date":"1995-11-05","role":"driver"},{"first_name":"Nina","last_name":"Exemple","birth_date":"1997-02-17","role":"driver"}]'),
+      (1, '15:00', 'session-kart-120',  3, 4, 'phone',  '[]'),
+      (2, '11:30', 'session-kart-270',  5, 2, 'online', '[]'),
+      (3, '14:00', 'session-kart-120',  2, 5, 'online', '[]'),
+      (5, '10:30', 'session-biplace',   2, 1, 'online', '[]'),
+      (6, '16:45', 'session-kart-270',  6, 3, 'phone',  '[]'),
+      (6, '20:30', 'session-kart-270',  4, 6, 'online', '[]')
     ) as b(day_offset, local_time, product_slug, karts, customer_idx, source, participants)
   loop
     begin

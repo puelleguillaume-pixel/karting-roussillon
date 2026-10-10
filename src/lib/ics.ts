@@ -34,7 +34,7 @@ export function buildIcs(event: CalendarEvent): string {
   const lines = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//Karting Roussillon//Reservation//FR',
+    'PRODID:-//Karting de Torreilles//Reservation//FR',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
     'BEGIN:VEVENT',

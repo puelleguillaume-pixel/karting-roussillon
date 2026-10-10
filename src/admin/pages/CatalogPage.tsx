@@ -319,7 +319,7 @@ function ProductForm({ initial, catalog, onClose }: { initial: Partial<AdminProd
         {bookable && <Check label="Validation chrono requise (pilotes validés uniquement)" checked={p.requires_chrono_validation ?? false} onChange={(e) => set('requires_chrono_validation', e.target.checked)} />}
         <Check label="Mis en avant sur l’accueil" checked={p.is_featured ?? false} onChange={(e) => set('is_featured', e.target.checked)} />
       </div>
-      <Input label="Image (chemin dans /public/images)" value={p.image_path ?? ''} onChange={(e) => set('image_path', e.target.value || null)} placeholder="karts/sodikart-390.webp" />
+      <Input label="Image (chemin dans /public/images)" value={p.image_path ?? ''} onChange={(e) => set('image_path', e.target.value || null)} placeholder="karts/kart-270.webp" />
       <FormActions busy={upsert.isPending} onClose={onClose} />
     </form>
   );

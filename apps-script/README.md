@@ -9,7 +9,7 @@ base (email_outbox) ──pg_cron + pg_net──▶ Edge Function send-emails �
 ## Installation (une fois)
 
 1. Connectez-vous à [script.google.com](https://script.google.com) avec le compte qui doit envoyer les emails, par exemple l'adresse du circuit.
-2. Créez un projet nommé « Karting Roussillon — emails ».
+2. Créez un projet nommé « Karting de Torreilles — emails ».
 3. Collez le contenu de `Code.gs`.
 4. Dans *Paramètres du projet*, cochez « Afficher le fichier manifeste appsscript.json » et remplacez son contenu par celui de `appsscript.json`.
 5. Toujours dans *Paramètres du projet* → *Propriétés du script*, ajoutez `SHARED_SECRET`. Mettez-y une longue valeur aléatoire (par exemple le résultat de `openssl rand -hex 32`) : c'est le `APPS_SCRIPT_SECRET` de l'Edge Function.

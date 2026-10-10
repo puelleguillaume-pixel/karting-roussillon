@@ -40,12 +40,6 @@ export function FormulasPage() {
           <FormulaCards bundle={bundle} only={['anniversaire', 'evg-evjf', 'team-building']} />
         </div>
       </Section>
-      <Section tone="raised" labelledBy="formules-experiences">
-        <div className="flex flex-col gap-10">
-          <SectionHeader id="formules-experiences" eyebrow="Expériences" title={sections.experiences?.title ?? ''} intro={sections.experiences?.body || undefined} />
-          <FormulaCards bundle={bundle} only={['ecole-de-pilotage', 'alpine-a110s']} />
-        </div>
-      </Section>
     </>
   );
 }
@@ -94,98 +88,6 @@ export function FormulaPage() {
               askCompany={config.askCompany}
               requireCompany={config.requireCompany}
               messagePlaceholder="Précisez vos envies, contraintes horaires, questions…"
-            />
-          }
-        />
-      </Section>
-    </>
-  );
-}
-
-export function SchoolPage() {
-  const bundle = useBundle();
-  const catalog = useCatalog();
-  const page = pageContent(bundle, 'ecole-de-pilotage');
-  const offers = [...(catalog.byRequestType.get('school_kart') ?? []), ...(catalog.byRequestType.get('school_moto') ?? [])];
-  const formTitle = page.data.form_title ?? 'Faire une demande';
-
-  return (
-    <>
-      <Seo title={page.data.seo_title} description={page.data.seo_description} />
-      <PageHeader
-        eyebrow={page.data.eyebrow ?? 'Kart · Moto'}
-        title={page.title}
-        intro={page.body}
-        actions={
-          <ButtonAnchor href="#demande" size="lg">
-            {formTitle}
-            <ArrowDown aria-hidden className="size-4" />
-          </ButtonAnchor>
-        }
-      />
-      <Section labelledBy="ecole-offres">
-        <h2 id="ecole-offres" className="sr-only">
-          Offres
-        </h2>
-        <OfferLayout
-          formTitle={formTitle}
-          offers={offers.map((offer) => (
-            <OfferCard key={offer.id} product={offer} />
-          ))}
-          form={
-            <RequestForm
-              type="school_kart"
-              typeLabel="Discipline"
-              typeOptions={offers
-                .filter((o): o is typeof o & { request_type: RequestType } => !!o.request_type)
-                .map((o) => ({ value: o.request_type, label: o.name }))}
-              requireDate={false}
-              participantsLabel="Nombre d'élèves"
-              messagePlaceholder="Votre niveau, votre objectif, vos disponibilités…"
-            />
-          }
-        />
-      </Section>
-    </>
-  );
-}
-
-export function AlpinePage() {
-  const bundle = useBundle();
-  const catalog = useCatalog();
-  const page = pageContent(bundle, 'alpine-a110s');
-  const offers = catalog.byRequestType.get('alpine') ?? [];
-  const formTitle = page.data.form_title ?? 'Faire une demande';
-
-  return (
-    <>
-      <Seo title={page.data.seo_title} description={page.data.seo_description} />
-      <PageHeader
-        eyebrow={page.data.eyebrow ?? 'Expérience'}
-        title={page.title}
-        intro={page.body}
-        actions={
-          <ButtonAnchor href="#demande" size="lg">
-            {formTitle}
-            <ArrowDown aria-hidden className="size-4" />
-          </ButtonAnchor>
-        }
-      />
-      <Section labelledBy="alpine-offres">
-        <h2 id="alpine-offres" className="sr-only">
-          Formules
-        </h2>
-        <OfferLayout
-          formTitle={formTitle}
-          offers={offers.map((offer) => (
-            <OfferCard key={offer.id} product={offer} />
-          ))}
-          form={
-            <RequestForm
-              type="alpine"
-              products={offers.length > 1 ? offers : undefined}
-              participantsLabel="Nombre de pilotes"
-              messagePlaceholder="Offert ou pour vous ? Une question sur l'expérience ?"
             />
           }
         />

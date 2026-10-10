@@ -1,5 +1,5 @@
 /**
- * Karting Roussillon — Web App d'envoi des emails transactionnels (Gmail).
+ * Karting de Torreilles — Web App d'envoi des emails transactionnels (Gmail).
  *
  * Appelée uniquement par l'Edge Function Supabase `send-emails`.
  * Installation : voir apps-script/README.md.
@@ -10,7 +10,7 @@
  * Corps attendu (JSON) :
  * {
  *   "secret": "…", "to": "client@exemple.fr", "subject": "…",
- *   "html": "<!doctype html>…", "text": "…", "name": "Karting Roussillon",
+ *   "html": "<!doctype html>…", "text": "…", "name": "Karting de Torreilles",
  *   "replyTo": "contact@…" (facultatif),
  *   "inlineImages": { "qr": { "base64": "…", "mimeType": "image/png", "name": "qr.png" } } (facultatif),
  *   "attachments": [{ "base64": "…", "mimeType": "application/pdf", "name": "bon-cadeau.pdf" }] (facultatif)
@@ -24,7 +24,7 @@ function doPost(e) {
     if (!secret || body.secret !== secret) return json_({ ok: false, error: 'unauthorized' });
     if (!body.to || !body.subject || !body.html) return json_({ ok: false, error: 'invalid payload' });
 
-    var options = { htmlBody: body.html, name: body.name || 'Karting Roussillon' };
+    var options = { htmlBody: body.html, name: body.name || 'Karting de Torreilles' };
     if (body.replyTo) options.replyTo = body.replyTo;
     if (body.inlineImages) {
       options.inlineImages = {};
@@ -54,9 +54,9 @@ function doPost(e) {
 /** Test manuel depuis l'éditeur : envoie un email à l'adresse du compte. */
 function testSend() {
   var me = Session.getActiveUser().getEmail();
-  MailApp.sendEmail(me, 'Test Karting Roussillon', 'La Web App peut envoyer des emails.', {
+  MailApp.sendEmail(me, 'Test Karting de Torreilles', 'La Web App peut envoyer des emails.', {
     htmlBody: '<p>La Web App peut envoyer des emails.</p>',
-    name: 'Karting Roussillon',
+    name: 'Karting de Torreilles',
   });
 }
 

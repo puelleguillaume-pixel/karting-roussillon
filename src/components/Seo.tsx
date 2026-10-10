@@ -16,7 +16,7 @@ interface SeoProps {
   image?: string | null;
 }
 
-const DEFAULT_TITLE = 'Karting Roussillon';
+const DEFAULT_TITLE = 'Karting de Torreilles';
 
 // React 19 place <title>, <meta> et <link> dans <head> automatiquement. Les mêmes
 // balises sont pré-rendues au build (scripts/prerender.mjs) : React les reprend

@@ -282,7 +282,7 @@ function BlockForm({ initial, editing, onClose, onDone }: { initial: BlockDraft;
             label="Libellé public"
             value={draft.public_label}
             onChange={(e) => set('public_label', e.target.value)}
-            placeholder="Ex. Circuit privatisé, Trackday moto"
+            placeholder="Ex. Piste privatisée, course d’endurance"
             maxLength={80}
             error={errors.public_label}
             className="sm:col-span-2"

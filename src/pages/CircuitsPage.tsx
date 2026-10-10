@@ -17,9 +17,9 @@ import { useBundle, useCatalog } from '@/lib/queries';
 function TrackActions({ track }: { track: Track }) {
   if (track.usage === 'events') {
     return (
-      <ButtonLink to="/trackday">
+      <ButtonLink to="/evenements">
         <CalendarDays aria-hidden className="size-4" />
-        Trackdays & événements
+        Événements
       </ButtonLink>
     );
   }
@@ -27,7 +27,7 @@ function TrackActions({ track }: { track: Track }) {
     <div className="flex flex-wrap gap-3">
       {track.online_booking_enabled && <ButtonLink to="/reserver">Réserver une session</ButtonLink>}
       {track.usage === 'track_access' && (
-        <ButtonLink to="/trackday" variant="secondary">
+        <ButtonLink to="/evenements" variant="secondary">
           <CalendarDays aria-hidden className="size-4" />
           Calendrier des droits de piste
         </ButtonLink>
@@ -45,9 +45,9 @@ export default function CircuitsPage() {
   return (
     <>
       <Seo title={page.data.seo_title} description={page.data.seo_description} />
-      <PageHeader eyebrow={page.data.eyebrow ?? `${catalog.circuits.length} tracés`} title={page.title} intro={page.body} />
+      <PageHeader eyebrow={page.data.eyebrow ?? `${catalog.circuits.length} pistes`} title={page.title} intro={page.body} />
 
-      <nav aria-label="Circuits" className="sticky top-16 z-20 border-b border-asphalt-800 bg-asphalt-950/90 backdrop-blur-md lg:top-[4.5rem]">
+      <nav aria-label="Pistes" className="sticky top-16 z-20 border-b border-asphalt-800 bg-asphalt-950/90 backdrop-blur-md lg:top-[4.5rem]">
         <Container className="flex gap-1 overflow-x-auto py-2">
           {catalog.circuits.map((track) => (
             <a
@@ -104,7 +104,7 @@ export default function CircuitsPage() {
                 <p className="max-w-[60ch] text-lg text-asphalt-200">{track.description}</p>
                 {vehicles.length > 0 && (
                   <div className="flex flex-col gap-3">
-                    <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-asphalt-400">Karts sur ce circuit</p>
+                    <p className="font-display text-sm font-semibold uppercase tracking-[0.18em] text-asphalt-400">Karts sur cette piste</p>
                     <ul className="flex flex-wrap gap-2">
                       {vehicles.map((vehicle) => (
                         <li key={vehicle.id}>

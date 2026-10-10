@@ -1,4 +1,4 @@
-# Mise en production — Karting Roussillon
+# Mise en production — Karting de Torreilles
 
 Ce guide passe du mode démonstration (base dans le navigateur) au site réel :
 Supabase (base, comptes, envoi des emails), Google Apps Script (Gmail) et Netlify (hébergement).
@@ -11,7 +11,7 @@ Compter une demi-journée. Rien n'est à modifier dans le code : tout passe par 
 | Supabase | Base PostgreSQL, connexion par lien magique, envoi planifié des emails | Région **UE (Paris ou Francfort)** pour le RGPD. Offre Pro recommandée (sauvegardes quotidiennes, pas de mise en veille). |
 | Google (compte du circuit) | Apps Script pour envoyer les emails depuis Gmail, Search Console, Google Ads | Le compte Gmail qui envoie est celui qui déploie l'Apps Script. |
 | Netlify | Hébergement du site, redirections des anciennes URL Wix | Offre gratuite suffisante au départ. |
-| Registrar du domaine | DNS de `kartingroussillon.com` | Aujourd'hui géré par Wix (à transférer ou à pointer). |
+| Registrar du domaine | DNS de `kartingtorreilles.com` | Aujourd'hui géré par Wix (à transférer ou à pointer). |
 
 ## 1. Base de données (Supabase)
 
@@ -29,13 +29,13 @@ psql "<chaîne de connexion>" -f supabase/seed.sql
 
 ### Authentification (Supabase → Authentication)
 
-1. **URL Configuration** : Site URL `https://www.kartingroussillon.com` ; Redirect URLs : `https://www.kartingroussillon.com/mon-compte`, `https://www.kartingroussillon.com/admin`.
+1. **URL Configuration** : Site URL `https://www.kartingtorreilles.com` ; Redirect URLs : `https://www.kartingtorreilles.com/mon-compte`, `https://www.kartingtorreilles.com/admin`.
 2. **SMTP personnalisé** (Settings → Auth → SMTP) : l'expéditeur par défaut de Supabase est limité à quelques emails par heure ; renseigner le SMTP de Gmail (mot de passe d'application) ou d'un service d'envoi pour les liens de connexion.
-3. **Modèle d'email « Magic Link »** : le traduire en français (objet : « Votre lien de connexion — Karting Roussillon »).
+3. **Modèle d'email « Magic Link »** : le traduire en français (objet : « Votre lien de connexion — Karting de Torreilles »).
 
 ### Compte du dirigeant
 
-1. Ouvrir `https://www.kartingroussillon.com/admin` et demander un lien de connexion avec l'email du dirigeant (le compte est créé).
+1. Ouvrir `https://www.kartingtorreilles.com/admin` et demander un lien de connexion avec l'email du dirigeant (le compte est créé).
 2. Dans l'éditeur SQL de Supabase, une seule fois :
 
 ```sql
@@ -59,7 +59,7 @@ Les autres membres de l'équipe s'ajoutent ensuite depuis **Paramètres & équip
 
 | Variable | Valeur |
 |---|---|
-| `VITE_SITE_URL` | `https://www.kartingroussillon.com` |
+| `VITE_SITE_URL` | `https://www.kartingtorreilles.com` |
 | `VITE_SUPABASE_URL` | Supabase → Settings → API → Project URL |
 | `VITE_SUPABASE_ANON_KEY` | Supabase → Settings → API → clé `anon` (publique) |
 | `VITE_GOOGLE_ADS_ID` | `AW-…` (facultatif, voir §5) |
@@ -78,14 +78,14 @@ select cron.schedule('kr_rebuild_site', '15 4 * * *',
 ## 4. Bascule du domaine (depuis Wix)
 
 1. Mettre le site en ligne sur l'adresse Netlify (`…netlify.app`) et le recetter (§6).
-2. Dans Netlify → Domain management : ajouter `www.kartingroussillon.com` et `kartingroussillon.com`, suivre les instructions DNS (enregistrements chez le registrar ; si le domaine est chez Wix, le transférer ou modifier ses DNS depuis Wix).
+2. Dans Netlify → Domain management : ajouter `www.kartingtorreilles.com` et `kartingtorreilles.com`, suivre les instructions DNS (enregistrements chez le registrar ; si le domaine est chez Wix, le transférer ou modifier ses DNS depuis Wix).
 3. Décommenter dans `netlify.toml` la redirection du domaine sans « www ».
 4. Les **25 anciennes URL Wix** (relevées dans le sitemap Wix) sont redirigées en 301 vers les nouvelles pages : le référencement acquis est conservé. Vérification automatique : `npm run test:e2e`.
 5. Résilier l'abonnement Wix seulement après vérification des redirections dans la Search Console (quelques semaines).
 
 ## 5. Référencement et mesure
 
-- **Google Search Console** : ajouter le domaine, soumettre `https://www.kartingroussillon.com/sitemap.xml`, surveiller « Pages » et « Améliorations » (données structurées : établissement local, produits, événements, fil d'Ariane).
+- **Google Search Console** : ajouter le domaine, soumettre `https://www.kartingtorreilles.com/sitemap.xml`, surveiller « Pages » et « Améliorations » (données structurées : établissement local, produits, événements, fil d'Ariane).
 - **Fiche Google Business Profile** : vérifier que l'adresse, le téléphone et les horaires sont identiques à ceux du site (Contenu du site → Coordonnées ; Disponibilités → Horaires).
 - **Google Ads** : créer deux conversions (réservation, commande de bon cadeau), renseigner l'identifiant et les libellés dans Netlify. La balise ne se charge **que si le visiteur accepte les cookies « publicité »** (mode Consent v2) ; sans consentement, rien n'est envoyé.
 

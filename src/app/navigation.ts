@@ -7,16 +7,14 @@ export interface NavItem {
 export const FORMULA_NAV: NavItem[] = [
   { label: 'Anniversaire', to: '/formules/anniversaire' },
   { label: 'EVG & EVJF', to: '/formules/evg-evjf' },
-  { label: 'Team building', to: '/formules/team-building' },
-  { label: 'École de pilotage', to: '/ecole-de-pilotage' },
-  { label: 'Alpine A110S', to: '/alpine-a110s' },
+  { label: 'Groupes & entreprises', to: '/formules/team-building' },
 ];
 
 export const MAIN_NAV: NavItem[] = [
   { label: 'Karts & tarifs', to: '/karts-tarifs' },
-  { label: 'Circuits', to: '/circuits' },
-  { label: 'Trackday', to: '/trackday' },
-  { label: 'Formules', to: '/formules', children: FORMULA_NAV },
+  { label: 'Pistes', to: '/circuits' },
+  { label: 'Événements', to: '/evenements' },
+  { label: 'Groupes', to: '/formules', children: FORMULA_NAV },
   { label: 'Chronos', to: '/chronos' },
   { label: 'Contact', to: '/contact' },
 ];

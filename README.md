@@ -1,4 +1,4 @@
-# Karting Roussillon — site vitrine, réservation et espace dirigeant
+# Karting de Torreilles — site vitrine, réservation et espace dirigeant
 
 React 19 · Vite 8 · TypeScript · Tailwind CSS 4 · Framer Motion · React Router · TanStack Query · Supabase (PostgreSQL).
 
@@ -116,7 +116,7 @@ Toutes les lectures et écritures passent par des RPC `admin_*` qui vérifient l
 
 - **Pages rendues au build** : `scripts/prerender.mjs` rend chaque page publique avec React ([src/entry-server.tsx](src/entry-server.tsx)) et les vraies données (Supabase en production). Le HTML contient la page complète, le titre, la description, l'URL canonique, Open Graph et les données structurées ; le navigateur reprend ce HTML sans le reconstruire (hydratation). Les données du site sont intégrées à la page : premier affichage sans attendre le réseau.
 - **Données structurées** : établissement (`LocalBusiness` + `SportsActivityLocation` : adresse, coordonnées, horaires, réseaux), offres (`Product` / `Offer` pour chaque tarif), trackdays (`Event`), fil d'Ariane. Construites depuis la base ([src/lib/seo/structured-data.ts](src/lib/seo/structured-data.ts)).
-- **Mots-clés locaux** dans les titres et descriptions (modifiables dans Contenu du site) : karting Perpignan, Rivesaltes, Claira, Pyrénées-Orientales, anniversaire karting, trackday Roussillon.
+- **Mots-clés locaux** dans les titres et descriptions (modifiables dans Contenu du site) : karting Perpignan, Torreilles, Pyrénées-Orientales, anniversaire karting, karting enfant.
 - `sitemap.xml` et `robots.txt` générés au build ; une version de démonstration n'est jamais indexable.
 - **Redirections 301** des 25 anciennes pages Wix (relevées dans le sitemap Wix) dans [netlify.toml](netlify.toml), avec les en-têtes de sécurité (CSP stricte, HSTS…) et de cache.
 - **Images** : `npm run images` (exécuté au build) produit des variantes AVIF et WebP en 480, 960 et 1600 px ; `<MediaImage>` les sert avec `srcset` et chargement différé.

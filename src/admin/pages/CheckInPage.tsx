@@ -58,7 +58,7 @@ export default function CheckInPage() {
       setCode(found);
       setInput('');
       if ('vibrate' in navigator) navigator.vibrate?.(80);
-    } else setInputError('Ce QR code n’est pas un QR de réservation Karting Roussillon.');
+    } else setInputError('Ce QR code n’est pas un QR de réservation Karting de Torreilles.');
   };
 
   return (

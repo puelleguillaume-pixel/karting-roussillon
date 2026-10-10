@@ -125,7 +125,7 @@ export const TRACK_USAGE_LABELS: Record<Track['usage'], string> = {
   leisure: 'Loisir',
   track_access: 'Droits de piste',
   events: 'Trackdays & événements',
-  baby: 'Baby Kart',
+  baby: 'Piste enfants',
 };
 
 export const ACCESS_STATUS: Record<TrackAccessStatus, { label: string; flag: string }> = {

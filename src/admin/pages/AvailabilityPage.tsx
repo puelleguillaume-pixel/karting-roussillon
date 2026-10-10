@@ -134,7 +134,7 @@ function TrackAccessEditor({ catalog }: { catalog: AdminCatalog }) {
             );
           }}
         >
-          <p className="text-xs text-asphalt-400">Cliquez un jour du calendrier ou saisissez une période. Le statut est affiché sur la page Trackday.</p>
+          <p className="text-xs text-asphalt-400">Cliquez un jour du calendrier ou saisissez une période.</p>
           <div className="grid grid-cols-2 gap-3">
             <Input label="Du" type="date" value={range.from} onChange={(e) => setRange({ ...range, from: e.target.value, to: range.to < e.target.value ? e.target.value : range.to })} />
             <Input label="Au" type="date" value={range.to} min={range.from} onChange={(e) => setRange({ ...range, to: e.target.value })} />

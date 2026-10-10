@@ -27,7 +27,7 @@ const dist = join(root, process.env.KR_DIST_DIR ?? 'dist');
 // Rendu React des pages (vite build --ssr src/entry-server.tsx)
 const ssrEntry = join(root, process.env.KR_SSR_DIR ?? 'dist-ssr', 'entry-server.js');
 const env = { ...loadEnv('production', root, 'VITE_'), ...process.env };
-const siteUrl = (env.VITE_SITE_URL?.trim() || 'https://www.kartingroussillon.com').replace(/\/$/, '');
+const siteUrl = (env.VITE_SITE_URL?.trim() || 'https://www.kartingtorreilles.com').replace(/\/$/, '');
 const supabaseUrl = env.VITE_SUPABASE_URL?.trim();
 const anonKey = env.VITE_SUPABASE_ANON_KEY?.trim();
 const isDemo = env.VITE_DATA_SOURCE?.trim() === 'demo' || !supabaseUrl || !anonKey;
@@ -90,7 +90,7 @@ function jsonLdFor(path, bundle, calendar) {
   if (path === '/') blocks.push(businessJsonLd(bundle, siteUrl), websiteJsonLd(bundle, siteUrl));
   if (path === '/contact') blocks.push(businessJsonLd(bundle, siteUrl));
   if (path === '/karts-tarifs') blocks.push(productsJsonLd(bundle, siteUrl));
-  if (path === '/trackday') blocks.push(...eventsJsonLd(calendar, bundle, siteUrl));
+  if (path === '/evenements') blocks.push(...eventsJsonLd(calendar, bundle, siteUrl));
   blocks.push(breadcrumbJsonLd(breadcrumbTrail(path), siteUrl));
   return blocks.filter(Boolean);
 }
@@ -134,7 +134,7 @@ function noscriptBody(route, page, bundle) {
 function renderPage(template, route, bundle, calendar, body) {
   const page = bundle.content[route.contentKey];
   const data = page?.data ?? {};
-  const title = data.seo_title || `${page?.title || route.label} · Karting Roussillon`;
+  const title = data.seo_title || `${page?.title || route.label} · Karting de Torreilles`;
   const description = data.seo_description || truncate(plain(page?.body), 160);
   const canonical = `${siteUrl}${route.path}`;
   const brand = bundle.content['brand']?.data ?? {};
@@ -147,7 +147,7 @@ function renderPage(template, route, bundle, calendar, body) {
     `<link data-prerender rel="canonical" href="${canonical}" />`,
     `<meta data-prerender property="og:type" content="website" />`,
     `<meta data-prerender property="og:locale" content="fr_FR" />`,
-    `<meta data-prerender property="og:site_name" content="Karting Roussillon" />`,
+    `<meta data-prerender property="og:site_name" content="Karting de Torreilles" />`,
     `<meta data-prerender property="og:title" content="${escapeHtml(title)}" />`,
     description && `<meta data-prerender property="og:description" content="${escapeHtml(description)}" />`,
     `<meta data-prerender property="og:url" content="${canonical}" />`,

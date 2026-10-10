@@ -10,8 +10,6 @@ export const TRACK_PATHS = {
 export type TrackShape = keyof typeof TRACK_PATHS;
 
 export function trackShapeFor(slug: string): TrackShape {
-  if (slug === 'circuit-1') return 'compact';
-  if (slug === 'circuit-3') return 'long';
-  if (slug === 'piste-baby') return 'oval';
+  if (slug === 'petite-piste') return 'oval';
   return 'medium';
 }

@@ -25,7 +25,7 @@ export default function LegalPage() {
 
   return (
     <>
-      <Seo title={`${title} · Karting Roussillon`} />
+      <Seo title={`${title} · Karting de Torreilles`} />
       <PageHeader eyebrow="Informations légales" title={title} />
       <Section>
         <div className="flex flex-col gap-8">

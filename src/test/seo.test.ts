@@ -9,16 +9,16 @@ const bundle = {
   settings: {},
   content: {
     contact: {
-      title: 'Karting Roussillon',
+      title: 'Karting de Torreilles',
       body: '',
       data: {
-        address: 'Mas de la Garrigue Nord',
-        postal_code: '66600',
-        city: 'Rivesaltes',
-        phone: '04 68 62 90 50',
-        phone_e164: '+33468629050',
+        address: 'Chemin Mas dels Capellans',
+        postal_code: '66440',
+        city: 'Torreilles',
+        phone: '04 68 28 44 75',
+        phone_e164: '+33468284475',
         opening: '',
-        geo: { lat: 42.77, lng: 2.88 },
+        geo: { lat: 42.757, lng: 2.99 },
         socials: { facebook: 'https://facebook.com/x', instagram: '' },
       },
     },
@@ -27,7 +27,7 @@ const bundle = {
   vehicle_types: [],
   products: [
     { id: '1', slug: 'session-a', name: 'Session A', price_cents: 2400, is_online_bookable: true, short_description: 'Dès 14 ans', description: '', age_label: '', image_path: null },
-    { id: '2', slug: 'alpine', name: 'Alpine', price_cents: null, is_online_bookable: false, short_description: '', description: '', age_label: '', image_path: null },
+    { id: '2', slug: 'anniversaire', name: 'Anniversaire', price_cents: null, is_online_bookable: false, short_description: '', description: '', age_label: '', image_path: null },
   ],
   opening_hours: [1, 2, 3, 4, 5, 6, 7].map((weekday) => ({
     track_id: null,
@@ -61,8 +61,8 @@ describe('données structurées', () => {
   it('établissement local : adresse, coordonnées, horaires regroupés, réseaux renseignés', () => {
     const b = businessJsonLd(bundle, SITE)!;
     expect(b['@type']).toEqual(['LocalBusiness', 'SportsActivityLocation']);
-    expect(b.telephone).toBe('+33468629050');
-    expect(b.geo).toEqual({ '@type': 'GeoCoordinates', latitude: 42.77, longitude: 2.88 });
+    expect(b.telephone).toBe('+33468284475');
+    expect(b.geo).toEqual({ '@type': 'GeoCoordinates', latitude: 42.757, longitude: 2.99 });
     const hours = b.openingHoursSpecification as Array<{ dayOfWeek: string[]; opens: string }>;
     expect(hours).toHaveLength(1);
     expect(hours[0]!.dayOfWeek).toHaveLength(7);
@@ -79,7 +79,7 @@ describe('données structurées', () => {
   it('événements publiés avec disponibilité', () => {
     const events = eventsJsonLd(
       [
-        { item_type: 'event', title: 'Trackday', starts_at: '2026-10-08T07:00:00Z', ends_at: '2026-10-08T16:00:00Z', day: '2026-10-08', status: '', track_slugs: [], event_slug: 'td', places_left: 0 },
+        { item_type: 'event', title: 'Course d’endurance', starts_at: '2026-10-08T07:00:00Z', ends_at: '2026-10-08T16:00:00Z', day: '2026-10-08', status: '', track_slugs: [], event_slug: 'td', places_left: 0 },
         { item_type: 'block', title: 'Privé', starts_at: null, ends_at: null, day: '2026-10-09', status: '', track_slugs: [], event_slug: null, places_left: null },
       ],
       bundle,

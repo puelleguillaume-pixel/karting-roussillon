@@ -9,6 +9,7 @@ import { Container, Eyebrow, Kerb, Section, SectionHeader } from '@/components/u
 import { Reveal } from '@/components/ui/Reveal';
 import { HeroBackdrop } from '@/components/visuals';
 import { contactContent, pageContent } from '@/lib/catalog';
+import { cx } from '@/lib/cx';
 import { addDays, formatInteger, todayInParis } from '@/lib/format';
 import { summarizeOpening } from '@/lib/opening';
 import { env } from '@/lib/env';
@@ -37,7 +38,7 @@ export default function HomePage() {
   const everyDay = opening.length === 1 && opening[0]!.days === 'Tous les jours';
 
   const facts = [
-    { label: 'Circuits', value: String(catalog.circuits.length), detail: lengths.map((l) => formatInteger(l)).join(' · ') + ' m' },
+    { label: 'Pistes', value: String(catalog.circuits.length), detail: lengths.map((l) => formatInteger(l)).join(' · ') + ' m' },
     everyDay
       ? { label: 'Ouvert', value: '7j/7', detail: opening[0]!.hours }
       : { label: 'Horaires', value: opening[0]?.hours ?? '', detail: opening[0]?.days ?? '' },
@@ -50,7 +51,7 @@ export default function HomePage() {
       <Seo title={page.data.seo_title} description={page.data.seo_description} jsonLd={[businessJsonLd(bundle, env.siteUrl), websiteJsonLd(bundle, env.siteUrl)]} />
 
       <section className="relative isolate overflow-hidden" aria-labelledby="hero-title">
-        <HeroBackdrop image={page.data.hero_image} video={page.data.hero_video} poster={page.data.hero_poster} alt="Le circuit de Karting Roussillon" />
+        <HeroBackdrop image={page.data.hero_image} video={page.data.hero_video} poster={page.data.hero_poster} alt="La piste du karting de Torreilles" />
         <Container className="flex min-h-[min(760px,calc(100svh-4rem))] flex-col justify-end gap-7 pb-14 pt-24 sm:pb-20">
           {page.data.eyebrow && <Eyebrow>{page.data.eyebrow}</Eyebrow>}
           <h1 id="hero-title" className="max-w-5xl text-display-2xl font-extrabold uppercase">
@@ -90,11 +91,11 @@ export default function HomePage() {
             intro={sections.circuits?.body}
             actions={
               <ButtonLink to="/circuits" variant="ghost">
-                Tous les circuits <ArrowRight aria-hidden className="size-4" />
+                Les pistes en détail <ArrowRight aria-hidden className="size-4" />
               </ButtonLink>
             }
           />
-          <ul className="grid gap-4 md:grid-cols-3">
+          <ul className={cx('grid gap-4', catalog.circuits.length === 2 ? 'md:grid-cols-2' : 'md:grid-cols-3')}>
             {catalog.circuits.map((track, i) => (
               <li key={track.id}>
                 <Reveal delay={i * 0.08} className="h-full">
@@ -115,7 +116,7 @@ export default function HomePage() {
             intro={sections.fleet?.body}
             actions={
               <ButtonLink to="/karts-tarifs" variant="ghost">
-                Toute la flotte et les packs <ArrowRight aria-hidden className="size-4" />
+                Tous les karts et les tarifs <ArrowRight aria-hidden className="size-4" />
               </ButtonLink>
             }
           />
@@ -146,8 +147,8 @@ export default function HomePage() {
             title={sections.events?.title ?? ''}
             intro={sections.events?.body}
             actions={
-              <ButtonLink to="/trackday" variant="ghost">
-                Calendrier de la piste <ArrowRight aria-hidden className="size-4" />
+              <ButtonLink to="/evenements" variant="ghost">
+                Tous les événements <ArrowRight aria-hidden className="size-4" />
               </ButtonLink>
             }
           />
@@ -159,7 +160,7 @@ export default function HomePage() {
           ) : upcoming.length > 0 ? (
             <EventList items={upcoming} trackNames={trackNames} />
           ) : (
-            <EmptyState title="Aucun événement programmé">Les trackdays et privatisations à venir apparaîtront ici.</EmptyState>
+            <EmptyState title="Aucun événement programmé">Les courses et privatisations à venir apparaîtront ici.</EmptyState>
           )}
         </div>
       </Section>

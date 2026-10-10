@@ -102,12 +102,12 @@ describe('agenda (.ics)', () => {
       uid: 'kr-1@karting',
       start: '2026-10-01T08:00:00Z',
       end: '2026-10-01T08:10:00Z',
-      title: 'Session SodiKart 390 cc, Circuit 1',
+      title: 'Session Kart 270 cc, Grande piste',
       description: 'x'.repeat(200),
     });
     expect(ics).toContain('BEGIN:VEVENT');
     expect(ics).toContain('DTSTART:20261001T080000Z');
-    expect(ics).toContain('SUMMARY:Session SodiKart 390 cc\\, Circuit 1');
+    expect(ics).toContain('SUMMARY:Session Kart 270 cc\\, Grande piste');
     expect(ics.split('\r\n').every((line) => line.length <= 75)).toBe(true);
   });
 });

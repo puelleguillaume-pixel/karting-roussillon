@@ -1,4 +1,4 @@
-# Base de données — Karting Roussillon (Supabase)
+# Base de données — Karting de Torreilles (Supabase)
 
 ## Contenu
 
@@ -167,7 +167,7 @@ Chaque action métier met un email en file (`public.email_outbox`, via `app.enqu
 
 ```bash
 # 1. Secrets de la fonction
-supabase secrets set   EMAIL_DISPATCH_SECRET=<valeur aléatoire>   APPS_SCRIPT_URL=https://script.google.com/macros/s/…/exec   APPS_SCRIPT_SECRET=<SHARED_SECRET de l'Apps Script>   SITE_URL=https://www.kartingroussillon.com   EMAIL_REPLY_TO=contact@…            # facultatif
+supabase secrets set   EMAIL_DISPATCH_SECRET=<valeur aléatoire>   APPS_SCRIPT_URL=https://script.google.com/macros/s/…/exec   APPS_SCRIPT_SECRET=<SHARED_SECRET de l'Apps Script>   SITE_URL=https://www.kartingtorreilles.com   EMAIL_REPLY_TO=contact@…            # facultatif
 
 # 2. Déploiement
 supabase functions deploy send-emails

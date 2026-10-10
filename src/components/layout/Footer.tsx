@@ -142,7 +142,7 @@ export function Footer() {
       </Container>
       <div className="border-t border-asphalt-800">
         <Container className="flex flex-col gap-2 py-6 text-sm text-asphalt-400 sm:flex-row sm:justify-between">
-          <p>© {new Date().getFullYear()} Karting Roussillon</p>
+          <p>© {new Date().getFullYear()} Karting de Torreilles</p>
           <p className="flex flex-wrap gap-x-4 gap-y-1">
             <span>Tous les prix sont indiqués TTC.</span>
             <Link to="/admin" className="underline underline-offset-2 hover:text-chalk">

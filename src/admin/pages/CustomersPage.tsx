@@ -244,12 +244,12 @@ function CustomerView({ c, onDeleted }: { c: AdminCustomer; onDeleted: () => voi
       <section aria-labelledby="chrono-title" className="flex flex-wrap items-center justify-between gap-3 bg-asphalt-950 p-4 ring-1 ring-asphalt-800">
         <div>
           <h3 id="chrono-title" className="font-semibold">
-            Validation chrono (Pack Rotax 22 CV)
+            Validation chrono
           </h3>
           <p className="text-xs text-asphalt-400">
             {c.chrono_validated
               ? `Validée${c.chrono_validated_at ? ` le ${formatDateTime(c.chrono_validated_at)}` : ''}${c.chrono_validated_by ? ` par ${c.chrono_validated_by}` : ''}.`
-              : 'Non validée : le pilote ne peut pas réserver le Pack Rotax en ligne.'}
+              : 'Non validée : le pilote ne peut pas réserver en ligne les produits soumis à validation chrono.'}
           </p>
         </div>
         <SmallButton

@@ -38,14 +38,14 @@ test('accueil : chargement sans erreur ni violation de la CSP', async () => {
   await page.goto('/');
   await waitForSite();
   await refuseCookies();
-  await expect(page).toHaveTitle(/Rivesaltes/);
+  await expect(page).toHaveTitle(/Torreilles/);
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2);
   expect(problems).toEqual([]);
 });
 
 test('réservation en ligne : activité, créneau, pilote, confirmation', async () => {
   await page.getByRole('link', { name: 'Réserver', exact: true }).first().click();
-  await page.getByRole('button', { name: /SodiKart 390 cc/ }).first().click();
+  await page.getByRole('button', { name: /Kart Sodi RT10 270 cc/ }).first().click();
   await expect(page).toHaveURL(/etape=2/);
 
   // Troisième jour proposé, premier créneau libre
@@ -128,7 +128,7 @@ test('bon cadeau : commande en ligne, encaissement à l’accueil, utilisation',
 
 test('mobile : pas de défilement horizontal sur les pages clés @mobile', async ({ browser }) => {
   const mobile = await browser.newPage({ viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true });
-  for (const path of ['/', '/karts-tarifs', '/bon-cadeau', '/trackday', '/contact']) {
+  for (const path of ['/', '/karts-tarifs', '/bon-cadeau', '/evenements', '/contact']) {
     await mobile.goto(path);
     await waitForSite(mobile);
     const overflow = await mobile.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);

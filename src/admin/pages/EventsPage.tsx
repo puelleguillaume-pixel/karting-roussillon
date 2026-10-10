@@ -259,7 +259,7 @@ function EventForm({ event, onClose }: { event: AdminEvent | null; onClose: () =
       <Textarea label="Description (affichée sur le site)" value={form.description} onChange={(e) => set('description', e.target.value)} rows={4} />
       <div className="flex flex-col gap-2">
         <Check label="Les participants viennent avec leur véhicule" checked={form.own_vehicle} onChange={(e) => set('own_vehicle', e.target.checked)} />
-        <Check label="Publier sur le site (calendrier et page Trackday)" checked={form.published} onChange={(e) => set('published', e.target.checked)} />
+        <Check label="Publier sur le site (page Événements)" checked={form.published} onChange={(e) => set('published', e.target.checked)} />
         <Check label="Ouvrir la réservation en ligne" checked={form.published && form.bookable} disabled={!form.published} onChange={(e) => set('bookable', e.target.checked)} />
         {!event && <Check label="Bloquer les pistes sur cette plage (créneaux fermés à la réservation loisir)" checked={form.block} onChange={(e) => set('block', e.target.checked)} />}
       </div>

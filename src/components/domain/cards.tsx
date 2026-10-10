@@ -1,4 +1,4 @@
-import { ArrowRight, Briefcase, Cake, Car, GraduationCap, PartyPopper, Route, Ruler, Timer, User } from 'lucide-react';
+import { ArrowRight, Briefcase, Cake, PartyPopper, Route, Ruler, Timer, User } from 'lucide-react';
 import { Link } from 'react-router';
 import { ButtonLink } from '@/components/ui/Button';
 import { Chip } from '@/components/ui/Chip';
@@ -198,8 +198,6 @@ const FORMULAS = [
   { key: 'anniversaire', to: '/formules/anniversaire', Icon: Cake },
   { key: 'evg-evjf', to: '/formules/evg-evjf', Icon: PartyPopper },
   { key: 'team-building', to: '/formules/team-building', Icon: Briefcase },
-  { key: 'ecole-de-pilotage', to: '/ecole-de-pilotage', Icon: GraduationCap },
-  { key: 'alpine-a110s', to: '/alpine-a110s', Icon: Car },
 ] as const;
 
 export function FormulaCards({ bundle, only }: { bundle: SiteBundle; only?: ReadonlyArray<(typeof FORMULAS)[number]['key']> }) {

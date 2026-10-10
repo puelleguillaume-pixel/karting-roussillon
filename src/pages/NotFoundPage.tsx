@@ -5,7 +5,7 @@ import { Container, Eyebrow } from '@/components/ui/layout';
 export default function NotFoundPage() {
   return (
     <>
-      <Seo title="Page introuvable · Karting Roussillon" noIndex />
+      <Seo title="Page introuvable · Karting de Torreilles" noIndex />
       <section className="relative isolate overflow-hidden">
         <div aria-hidden className="checker absolute -right-10 top-10 -z-10 size-72 rotate-12 text-chalk/[0.05] [--checker:36px]" />
         <Container className="flex min-h-[60svh] flex-col justify-center gap-6 py-24">

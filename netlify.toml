@@ -1,5 +1,5 @@
 # =============================================================================
-# Karting Roussillon — déploiement Netlify
+# Karting de Torreilles — déploiement Netlify
 # Variables d'environnement à définir dans Netlify (Site settings → Environment) :
 #   VITE_SITE_URL, VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY,
 #   VITE_GOOGLE_ADS_ID, VITE_GOOGLE_ADS_BOOKING_LABEL, VITE_GOOGLE_ADS_GIFT_LABEL
@@ -14,158 +14,29 @@
   NODE_VERSION = "22"
 
 # -----------------------------------------------------------------------------
-# Redirections 301 des anciennes pages Wix (relevées dans le sitemap Wix
-# du 22/09/2026). Les chemins accentués sont déclarés sous les deux formes.
+# Redirections 301 des anciennes pages du site actuel (kartingtorreilles.com).
+# /karts-tarifs garde la même adresse. Les chemins accentués sont déclarés
+# sous les deux formes.
 # -----------------------------------------------------------------------------
-[[redirects]]
-  from = "/copie-de-tarifs"
-  to = "/circuits"
-  status = 301
-
-[[redirects]]
-  from = "/tarifs"
-  to = "/karts-tarifs"
-  status = 301
-
-[[redirects]]
-  from = "/about-1"
-  to = "/bon-cadeau"
-  status = 301
-
-[[redirects]]
-  from = "/gift-card"
-  to = "/bon-cadeau"
-  status = 301
-
-[[redirects]]
-  from = "/copie-de-bon-cadeau"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/about-1-1"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/about-1-3"
-  to = "/chronos"
-  status = 301
-
-[[redirects]]
-  from = "/anniversaires"
-  to = "/formules/anniversaire"
-  status = 301
-
-[[redirects]]
-  from = "/copie-de-anniversaires"
-  to = "/ecole-de-pilotage"
-  status = 301
-
-[[redirects]]
-  from = "/copie-de-ecole-de-pilotage"
-  to = "/ecole-de-pilotage"
-  status = 301
-
-[[redirects]]
-  from = "/copie-de-moto"
-  to = "/ecole-de-pilotage"
-  status = 301
-
-[[redirects]]
-  from = "/bapteme-auto"
-  to = "/alpine-a110s"
-  status = 301
-
-[[redirects]]
-  from = "/book-online"
-  to = "/reserver"
-  status = 301
-
-[[redirects]]
-  from = "/about-9"
-  to = "/reserver"
-  status = 301
-
 [[redirects]]
   from = "/infos"
   to = "/contact"
   status = 301
 
 [[redirects]]
-  from = "/inquiry-services-page"
-  to = "/contact"
+  from = "/photos-vidéos"
+  to = "/circuits"
   status = 301
 
 [[redirects]]
-  from = "/event-list"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/event-details/*"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/évènement"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/%C3%A9v%C3%A8nement"
-  to = "/trackday"
-  status = 301
-
-[[redirects]]
-  from = "/shop"
-  to = "/karts-tarifs"
-  status = 301
-
-[[redirects]]
-  from = "/product-page/*"
-  to = "/karts-tarifs"
-  status = 301
-
-[[redirects]]
-  from = "/mentions-légales"
-  to = "/mentions-legales"
-  status = 301
-
-[[redirects]]
-  from = "/mentions-l%C3%A9gales"
-  to = "/mentions-legales"
-  status = 301
-
-[[redirects]]
-  from = "/politique-de-confidentialité"
-  to = "/confidentialite"
-  status = 301
-
-[[redirects]]
-  from = "/politique-de-confidentialit%C3%A9"
-  to = "/confidentialite"
-  status = 301
-
-[[redirects]]
-  from = "/politique-de-cookies"
-  to = "/cookies"
-  status = 301
-
-[[redirects]]
-  from = "/profile/*"
-  to = "/mon-compte"
-  status = 301
-
-[[redirects]]
-  from = "/account/*"
-  to = "/mon-compte"
+  from = "/photos-vid%C3%A9os"
+  to = "/circuits"
   status = 301
 
 # Domaine sans « www » vers le domaine principal (à activer une fois le DNS en place)
 # [[redirects]]
-#   from = "https://kartingroussillon.com/*"
-#   to = "https://www.kartingroussillon.com/:splat"
+#   from = "https://kartingtorreilles.com/*"
+#   to = "https://www.kartingtorreilles.com/:splat"
 #   status = 301
 #   force = true
 

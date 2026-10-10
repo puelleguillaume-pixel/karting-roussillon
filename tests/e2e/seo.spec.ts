@@ -1,4 +1,4 @@
-// SEO et hébergement : HTML pré-rendu, sitemap, robots, redirections Wix, en-têtes.
+// SEO et hébergement : HTML pré-rendu, sitemap, robots, redirections de l'ancien site, en-têtes.
 // Requêtes HTTP brutes (ce que voit un robot sans JavaScript).
 import { expect, test } from '@playwright/test';
 import { readFileSync } from 'node:fs';
@@ -8,11 +8,11 @@ const netlify = parse(readFileSync('netlify.toml', 'utf8')) as { redirects: Arra
 
 test.describe('HTML pré-rendu', () => {
   for (const [path, keyword] of [
-    ['/', 'Rivesaltes'],
+    ['/', 'Torreilles'],
     ['/karts-tarifs', 'Perpignan'],
-    ['/trackday', 'Trackday'],
+    ['/evenements', 'événements'],
     ['/formules/anniversaire', 'Anniversaire'],
-    ['/contact', 'Claira'],
+    ['/contact', 'Torreilles'],
   ] as const) {
     test(`${path} : titre, description, canonique et contenu sans JavaScript`, async ({ request }) => {
       const response = await request.get(path);
@@ -23,7 +23,7 @@ test.describe('HTML pré-rendu', () => {
       expect(`${title} ${description}`).toContain(keyword);
       expect(description.length).toBeGreaterThanOrEqual(50);
       expect(description.length).toBeLessThanOrEqual(170);
-      expect(html).toContain(`rel="canonical" href="https://www.kartingroussillon.com${path}"`);
+      expect(html).toContain(`rel="canonical" href="https://www.kartingtorreilles.com${path}"`);
       // Page réelle rendue au build : titre principal présent sans JavaScript
       expect(html).toMatch(/<div id="root">[\s\S]*<h1[^>]*>[\s\S]*<\/h1>/);
       const blocks = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]!));
@@ -35,19 +35,19 @@ test.describe('HTML pré-rendu', () => {
     const home = await (await request.get('/')).text();
     const business = [...home.matchAll(/application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]!)).find((b) => Array.isArray(b['@type']));
     expect(business['@type']).toEqual(['LocalBusiness', 'SportsActivityLocation']);
-    expect(business.address.postalCode).toBe('66600');
+    expect(business.address.postalCode).toBe('66440');
     expect(business.openingHoursSpecification.length).toBeGreaterThan(0);
     const karts = await (await request.get('/karts-tarifs')).text();
     const list = [...karts.matchAll(/application\/ld\+json">(.*?)<\/script>/g)].map((m) => JSON.parse(m[1]!)).find((b) => b['@type'] === 'ItemList');
     const prices = list.itemListElement.map((i: { item: { name: string; offers: { price: string } } }) => [i.item.name, i.item.offers.price]);
-    expect(prices).toContainEqual(['SodiKart 2T 30 CV', '50.00']);
-    expect(prices).toContainEqual(['Kart 160 cc', '20.00']);
+    expect(prices).toContainEqual(['Kart Sodi RT10 270 cc', '19.00']);
+    expect(prices).toContainEqual(['Kart Sodi 120 cc', '15.00']);
   });
 
   test('sitemap et robots (démo : indexation bloquée)', async ({ request }) => {
     const sitemap = await (await request.get('/sitemap.xml')).text();
     for (const path of ['/', '/karts-tarifs', '/bon-cadeau', '/formules/team-building', '/cgv']) {
-      expect(sitemap).toContain(`<loc>https://www.kartingroussillon.com${path}</loc>`);
+      expect(sitemap).toContain(`<loc>https://www.kartingtorreilles.com${path}</loc>`);
     }
     expect(sitemap).not.toContain('/admin');
     expect(await (await request.get('/robots.txt')).text()).toContain('Disallow: /');
@@ -55,9 +55,9 @@ test.describe('HTML pré-rendu', () => {
 });
 
 test.describe('Hébergement', () => {
-  test('toutes les anciennes URL Wix redirigent (301) vers une page existante', async ({ request }) => {
+  test('toutes les anciennes URL redirigent (301) vers une page existante', async ({ request }) => {
     const rules = netlify.redirects.filter((r) => r.status === 301);
-    expect(rules.length).toBeGreaterThanOrEqual(25);
+    expect(rules.length).toBeGreaterThanOrEqual(3);
     for (const rule of rules) {
       const from = rule.from.replace('/*', '/exemple');
       const response = await request.get(encodeURI(from), { maxRedirects: 0 });

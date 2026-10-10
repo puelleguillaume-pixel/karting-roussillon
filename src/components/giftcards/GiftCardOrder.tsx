@@ -105,7 +105,7 @@ export function GiftCardOrder() {
 
   const preview = (
     <GiftCardPreview
-      businessName={contact?.title ?? 'Karting Roussillon'}
+      businessName={contact?.title ?? 'Karting de Torreilles'}
       valueLabel={valueLabel}
       valueDetail={valueDetail}
       recipientName={recipientName.trim()}
@@ -188,7 +188,7 @@ export function GiftCardOrder() {
             <SelectField label="Activité" name="product_id" required value={productId} onChange={(e) => setProductId(e.target.value)} error={errors.product_id}>
               {[
                 { label: 'Sessions', items: giftable.filter((p) => p.kind === 'session') },
-                { label: 'Packs KR', items: giftable.filter((p) => p.kind === 'pack') },
+                { label: 'Packs', items: giftable.filter((p) => p.kind === 'pack') },
               ].map((group) => (
                 <optgroup key={group.label} label={group.label}>
                   {group.items.map((p) => (

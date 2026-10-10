@@ -49,7 +49,7 @@ export default function ManageBookingPage() {
     const notFound = RpcError.from(booking.error).code === 'KR_BOOKING_NOT_FOUND';
     return (
       <Container className="flex flex-col items-start gap-5 py-16">
-        <Seo title="Réservation · Karting Roussillon" noIndex />
+        <Seo title="Réservation · Karting de Torreilles" noIndex />
         <h1 className="text-display-lg font-extrabold uppercase">{notFound ? 'Réservation introuvable' : 'Chargement impossible'}</h1>
         {notFound ? (
           <p className="max-w-lg text-asphalt-200">Ce lien ne correspond à aucune réservation. Vérifiez le lien reçu par email ou contactez le circuit.</p>
@@ -88,9 +88,9 @@ function BookingView({ booking: b, token, justConfirmed }: { booking: ManagedBoo
   const addToCalendar = () => {
     const address = contact ? `${contact.data.address}, ${contact.data.postal_code} ${contact.data.city}` : undefined;
     downloadIcs(
-      `karting-roussillon-${b.reference}.ics`,
+      `karting-torreilles-${b.reference}.ics`,
       buildIcs({
-        uid: `${b.id}@kartingroussillon`,
+        uid: `${b.id}@kartingtorreilles`,
         start: b.event?.starts_at ?? b.starts_at,
         end: endOf(b),
         title: `${title} · ${contact?.title ?? 'Karting'}`,
@@ -103,7 +103,7 @@ function BookingView({ booking: b, token, justConfirmed }: { booking: ManagedBoo
 
   return (
     <>
-      <Seo title={`Réservation ${b.reference} · Karting Roussillon`} noIndex />
+      <Seo title={`Réservation ${b.reference} · Karting de Torreilles`} noIndex />
       <header className="relative border-b border-asphalt-800">
         <Container className="flex flex-col gap-4 py-10 sm:py-14">
           <Eyebrow>Réservation {b.reference}</Eyebrow>

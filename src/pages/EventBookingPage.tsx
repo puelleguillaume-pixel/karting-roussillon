@@ -50,9 +50,9 @@ export default function EventBookingPage() {
   if (!event.data) {
     return (
       <Container className="flex flex-col items-start gap-5 py-16">
-        <Seo title="Événement introuvable · Karting Roussillon" noIndex />
+        <Seo title="Événement introuvable · Karting de Torreilles" noIndex />
         <h1 className="text-display-lg font-extrabold uppercase">Événement introuvable</h1>
-        <ButtonLink to="/trackday">Voir le calendrier</ButtonLink>
+        <ButtonLink to="/evenements">Voir le calendrier</ButtonLink>
       </Container>
     );
   }
@@ -143,7 +143,7 @@ function EventBooking({ event }: { event: PublicEvent }) {
 
   return (
     <>
-      <Seo title={`${event.title} · Karting Roussillon`} description={event.description || undefined} />
+      <Seo title={`${event.title} · Karting de Torreilles`} description={event.description || undefined} />
       <header className="relative border-b border-asphalt-800">
         <Container className="flex flex-col gap-5 py-10 sm:py-14">
           <Eyebrow>{EVENT_KIND_LABELS[event.kind] ?? 'Événement'}</Eyebrow>
@@ -181,7 +181,7 @@ function EventBooking({ event }: { event: PublicEvent }) {
             <Alert tone="info" title={event.places_left > 0 ? 'Inscriptions fermées' : 'Complet'}>
               Les inscriptions en ligne ne sont pas ouvertes pour cet événement. Contactez le circuit pour vous renseigner.
             </Alert>
-            <ButtonLink to="/trackday" variant="secondary">
+            <ButtonLink to="/evenements" variant="secondary">
               Voir le calendrier
             </ButtonLink>
           </div>

@@ -13,5 +13,5 @@ export const env = {
   dataSource: resolveDataSource(),
   supabaseUrl,
   supabaseAnonKey,
-  siteUrl: (import.meta.env.VITE_SITE_URL?.trim() || 'https://www.kartingroussillon.com').replace(/\/$/, ''),
+  siteUrl: (import.meta.env.VITE_SITE_URL?.trim() || 'https://www.kartingtorreilles.com').replace(/\/$/, ''),
 } as const;

@@ -1,5 +1,5 @@
 // Accessibilité WCAG 2.1 AA (axe-core) sur les pages publiques et l'espace dirigeant.
-// Le site propose des handikarts : aucune violation grave ou critique n'est tolérée.
+// Aucune violation grave ou critique n'est tolérée.
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test, type BrowserContext, type Page } from '@playwright/test';
 
@@ -31,8 +31,8 @@ async function audit(path: string, ready: () => Promise<void>) {
 const PUBLIC_PAGES: Array<[string, string]> = [
   ['/', 'Accueil'],
   ['/karts-tarifs', 'Karts'],
-  ['/circuits', 'Circuits'],
-  ['/trackday', 'Trackday'],
+  ['/circuits', 'Pistes'],
+  ['/evenements', 'Événements'],
   ['/formules/anniversaire', 'Anniversaire'],
   ['/bon-cadeau', 'Bon cadeau'],
   ['/chronos', 'Chronos'],
@@ -61,7 +61,7 @@ for (const [path, name] of PUBLIC_PAGES) {
 }
 
 test('parcours de réservation, étape créneau : aucune violation WCAG AA grave', async () => {
-  await audit('/reserver?produit=session-sodikart-390&etape=2', async () => {
+  await audit('/reserver?produit=session-kart-270&etape=2', async () => {
     await expect(page.locator('main button[aria-pressed]').first()).toBeVisible();
   });
 });
